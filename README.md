@@ -13,12 +13,12 @@ It consists of three main components:
 
 ## Key Features
 
-### 🌟 Functionality
+### Functionality
 - **Real-time Inference**: Send measurements to the `/predict` endpoint and get immediate species classifications.
 - **Interactive Dashboard**: Friendly UI with sliders to visualize how inputs affect the model's predictions.
 - **Model Metadata**: The system serves not just predictions but context, responding with human-readable class names (Setosa, Versicolor, Virginica).
 
-### ⚙️ MLOps & Architecture
+### MLOps & Architecture
 - **Robust Validation**: Uses `pydantic` to strictly validate API inputs, protecting the model from bad data.
 - **Structured Logging**: Implements `structlog` to output JSON-formatted logs, essential for cloud observability (Stackdriver/Cloud Logging).
 - **Automated Testing**: Features a comprehensive `pytest` suite for unit logic and integration testing, ensuring reliability.
@@ -56,6 +56,33 @@ To run the Streamlit Frontend (in a separate terminal):
 ```bash
 streamlit run streamlit_app.py
 ```
+
+## GCP Deployment
+
+The application is dockerized and ready for Google Cloud Run.
+
+### 1. Authenticate with GCP
+```bash
+gcloud auth login
+gcloud config set project [YOUR_PROJECT_ID]
+```
+
+### 2. Enable Services (First time only)
+```bash
+gcloud services enable cloudbuild.googleapis.com run.googleapis.com
+```
+
+### 3. Build & Deploy
+We use Cloud Build to build the image and Cloud Run to serve it.
+
+```bash
+# Submit build to Container Registry (replace [YOUR_PROJECT_ID])
+gcloud builds submit --tag gcr.io/[YOUR_PROJECT_ID]/iris-app
+
+# Deploy to Cloud Run
+gcloud run deploy iris-app --image gcr.io/[YOUR_PROJECT_ID]/iris-app --platform managed --region us-central1 --allow-unauthenticated
+```
+*Note: The `--allow-unauthenticated` flag makes the API public.*
 
 ## detailed Usage
 **Test via CURL**:
