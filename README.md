@@ -1,20 +1,29 @@
 # Flask GCP MLOps Lab (Enhanced)
 
-A production-ready Flask API for Iris species prediction, enhanced with MLOps best practices, automated testing, and CI/CD pipelines.
+A comprehensive Machine Learning application for **Iris Species Prediction**, built to demonstrate **production-grade MLOps** practices on Google Cloud Platform.
 
-## Features
+## Project Overview
 
-### Core Enhancements
-- **Robust Input Validation**: Integrated `pydantic` to validate API requests, ensuring strict type checking and helpful error messages.
-- **Production-Grade Logging**: Replaced standard prints with `structlog` for structured JSON logging, making the app observability-ready.
-- **Model Bundling**: Enhanced training pipeline to bundle metadata (class names, accuracy) with the model artifact, eliminating hardcoded labels.
-- **Resilient Architecture**: Implemented a `ModelService` with lazy loading and error handling for robust inference.
+This project implements an end-to-end Machine Learning pipeline that allows users to classify Iris flowers based on their physical measurements (sepal and petal dimensions).
 
-### DevSecOps & Automation
-- **Automated Testing**: Comprehensive `pytest` suite covering both unit logic and API integration points.
-- **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflows/ci.yml`) to automatically run linting and tests on every push.
-- **Developer Experience**: A `Makefile` simplifying common lifecycle commands (`install`, `train`, `test`, `run`).
-- **Environment Management**: Configuration via `.env` files for secure and flexible deployment settings.
+It consists of three main components:
+1.  **ML Core**: A Random Forest Classifier trained on the standard Iris dataset.
+2.  **Backend API**: A robust **Flask** REST API that serves the model for real-time inference.
+3.  **Frontend UI**: An interactive **Streamlit** dashboard that lets users consume the API easily.
+
+## Key Features
+
+### 🌟 Functionality
+- **Real-time Inference**: Send measurements to the `/predict` endpoint and get immediate species classifications.
+- **Interactive Dashboard**: Friendly UI with sliders to visualize how inputs affect the model's predictions.
+- **Model Metadata**: The system serves not just predictions but context, responding with human-readable class names (Setosa, Versicolor, Virginica).
+
+### ⚙️ MLOps & Architecture
+- **Robust Validation**: Uses `pydantic` to strictly validate API inputs, protecting the model from bad data.
+- **Structured Logging**: Implements `structlog` to output JSON-formatted logs, essential for cloud observability (Stackdriver/Cloud Logging).
+- **Automated Testing**: Features a comprehensive `pytest` suite for unit logic and integration testing, ensuring reliability.
+- **CI/CD Pipeline**: A GitHub Actions workflow (`ci.yml`) automatically builds and tests code on every push, preventing regression.
+- **Dockerized**: specific `Dockerfile` included for containerizing the app for Cloud Run deployment.
 
 ## Quick Start
 
@@ -31,39 +40,48 @@ A production-ready Flask API for Iris species prediction, enhanced with MLOps be
     ```
 
 ### Training the Model
-Train the Random Forest model and generate the artifact bundle (`model/model.pkl`):
+To ensure you have the latest model artifact (`model/model.pkl`) containing the trained classifier and metadata:
 ```bash
 make train
 ```
 
-### Running the API
-Start the Flask development server (default port: 8080):
+### Running the Application
+Start the Flask backend (API):
 ```bash
 make run
 ```
-Test the endpoint:
+*The API will start at `http://localhost:8080`*
+
+To run the Streamlit Frontend (in a separate terminal):
+```bash
+streamlit run streamlit_app.py
+```
+
+## detailed Usage
+**Test via CURL**:
 ```bash
 curl -X POST http://localhost:8080/predict \
      -H "Content-Type: application/json" \
      -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
 ```
 
-## Testing
-Run the full regression test suite:
-```bash
-make test
+**Expected Response**:
+```json
+{
+  "prediction": "setosa"
+}
 ```
 
 ## Project Structure
 ```text
 .
-├── .github/workflows/   # CI/CD definitions
-├── model/               # Trained artifacts
+├── .github/workflows/   # CI/CD Automation
+├── model/               # Trained Model & Metadata bundle
 ├── src/
-│   ├── main.py          # Flask API Entrypoint
-│   ├── train.py         # Training Pipeline
-│   └── predict.py       # Inference Logic
-├── tests/               # Pytest Suite
-├── Makefile             # Command Shortcuts
-└── requirements.txt     # Pinned Dependencies
+│   ├── main.py          # Flask API Entrypoint with Validation
+│   ├── train.py         # Training pipeline (RF Classifier)
+│   └── predict.py       # Inference Logic (Model Service)
+├── tests/               # Pytest Suite (Unit & Integration)
+├── Makefile             # Automation Scripts
+└── streamlit_app.py     # Frontend User Interface
 ```
