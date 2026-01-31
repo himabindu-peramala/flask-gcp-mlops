@@ -18,6 +18,11 @@ It consists of three main components:
 - **Interactive Dashboard**: Friendly UI with sliders to visualize how inputs affect the model's predictions.
 - **Model Metadata**: The system serves not just predictions but context, responding with human-readable class names (Setosa, Versicolor, Virginica).
 
+### 📸 Interface Preview
+| Streamlit Dashboard | API Response |
+|:-------------------:|:------------:|
+| ![Dashboard](assets/streamlit_dashboard.png) | ![API](assets/api_response.png) |
+
 ### MLOps & Architecture
 - **Robust Validation**: Uses `pydantic` to strictly validate API inputs, protecting the model from bad data.
 - **Structured Logging**: Implements `structlog` to output JSON-formatted logs, essential for cloud observability (Stackdriver/Cloud Logging).
