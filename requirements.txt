@@ -1,0 +1,9 @@
+pandas==2.2.0
+scikit-learn==1.4.0
+streamlit==1.30.0
+flask==3.0.0
+pydantic==2.6.0
+pytest==8.0.0
+structlog==24.1.0
+python-dotenv==1.0.1
+gunicorn==21.2.0
