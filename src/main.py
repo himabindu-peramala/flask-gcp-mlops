@@ -30,6 +30,10 @@ class IrisInput(BaseModel):
     petal_length: float
     petal_width: float
 
+@app.route('/')
+def health():
+    return jsonify({"status": "running", "message": "Iris Species Predictor API is active"})
+
 @app.route('/predict', methods=['POST'])
 def predict():
     log = logger.bind(job="api_request")
