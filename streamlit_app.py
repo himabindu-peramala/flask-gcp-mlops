@@ -5,7 +5,6 @@ from PIL import Image
 # 1. PAGE CONFIGURATION
 st.set_page_config(
     page_title="Iris Classifier",
-    page_icon="🌸",
     layout="centered",
     initial_sidebar_state="expanded"
 )
@@ -37,7 +36,7 @@ st.markdown("""
 # 3. SIDEBAR CONFIGURATION
 with st.sidebar:
     st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iris_versicolor_3.jpg/1200px-Iris_versicolor_3.jpg", caption="Iris Versicolor")
-    st.title("🌸 About the App")
+    st.title("About the App")
     st.info(
         """
         This machine learning app predicts the **species** of an Iris flower based on its measurements.
@@ -52,7 +51,7 @@ with st.sidebar:
     st.caption("Built with Streamlit & Cloud Run")
 
 # 4. MAIN APP INTERFACE
-st.title("🌿 Iris Species Predictor")
+st.title("Iris Species Predictor")
 st.markdown("Adjust the sliders below to input the flower measurements.")
 
 # Create a 2x2 grid for inputs using columns
@@ -71,7 +70,7 @@ with col2:
 st.write("---")
 
 # 5. PREDICTION LOGIC
-if st.button('🔍 Predict Species'):
+if st.button('Predict Species'):
     
     # Visual loading spinner
     with st.spinner('Analyzing flower data...'):

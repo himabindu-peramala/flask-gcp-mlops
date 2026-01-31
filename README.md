@@ -2,7 +2,7 @@
 
 A production-ready Flask API for Iris species prediction, enhanced with MLOps best practices, automated testing, and CI/CD pipelines.
 
-## 🚀 Features
+## Features
 
 ### Core Enhancements
 - **Robust Input Validation**: Integrated `pydantic` to validate API requests, ensuring strict type checking and helpful error messages.
@@ -16,7 +16,7 @@ A production-ready Flask API for Iris species prediction, enhanced with MLOps be
 - **Developer Experience**: A `Makefile` simplifying common lifecycle commands (`install`, `train`, `test`, `run`).
 - **Environment Management**: Configuration via `.env` files for secure and flexible deployment settings.
 
-## 🛠️ Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.9+
@@ -48,13 +48,13 @@ curl -X POST http://localhost:8080/predict \
      -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
 ```
 
-## 🧪 Testing
+## Testing
 Run the full regression test suite:
 ```bash
 make test
 ```
 
-## 📂 Project Structure
+## Project Structure
 ```text
 .
 ├── .github/workflows/   # CI/CD definitions
