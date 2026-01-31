@@ -18,7 +18,7 @@ It consists of three main components:
 - **Interactive Dashboard**: Friendly UI with sliders to visualize how inputs affect the model's predictions.
 - **Model Metadata**: The system serves not just predictions but context, responding with human-readable class names (Setosa, Versicolor, Virginica).
 
-### 📸 Interface Preview
+###  Interface Preview
 | Streamlit Dashboard | API Response |
 |:-------------------:|:------------:|
 | ![Dashboard](assets/streamlit_dashboard.png) | ![API](assets/api_response.png) |
