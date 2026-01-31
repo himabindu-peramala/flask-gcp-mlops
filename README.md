@@ -63,8 +63,12 @@ The application is dockerized and ready for Google Cloud Run.
 
 ### 1. Authenticate with GCP
 ```bash
+# 1. Login to Google Cloud
 gcloud auth login
-gcloud config set project [YOUR_PROJECT_ID]
+
+# 2. Set your Project ID
+export PROJECT_ID=your-google-cloud-project-id
+gcloud config set project $PROJECT_ID
 ```
 
 ### 2. Enable Services (First time only)
@@ -76,11 +80,15 @@ gcloud services enable cloudbuild.googleapis.com run.googleapis.com
 We use Cloud Build to build the image and Cloud Run to serve it.
 
 ```bash
-# Submit build to Container Registry (replace [YOUR_PROJECT_ID])
-gcloud builds submit --tag gcr.io/[YOUR_PROJECT_ID]/iris-app
+# Submit build to Container Registry
+gcloud builds submit --tag gcr.io/$PROJECT_ID/iris-app
 
 # Deploy to Cloud Run
-gcloud run deploy iris-app --image gcr.io/[YOUR_PROJECT_ID]/iris-app --platform managed --region us-central1 --allow-unauthenticated
+gcloud run deploy iris-app \
+    --image gcr.io/$PROJECT_ID/iris-app \
+    --platform managed \
+    --region us-central1 \
+    --allow-unauthenticated
 ```
 *Note: The `--allow-unauthenticated` flag makes the API public.*
 
